@@ -1,0 +1,5 @@
+<input #addItemInput value="{{ addItemValue }}" (input)="addItemUpdate($event)" (keyup)="addItemKeyUp($event)">
+<div class="text" data-id="{{ item.id }}" *ngFor="let item of items | async">
+    {{ item.name }}
+    <input type="button" value="delete" (click)="remItem(item.id)">
+</div>

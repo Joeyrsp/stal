@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 import { Item } from './classes';
 
 @Component({
@@ -11,15 +12,16 @@ import { Item } from './classes';
 export class AppComponent {
     itemCollection: AngularFirestoreCollection;
     items: Observable<any[]>;
+    loading: boolean = true;
     addItemValue: string;
 
     constructor(db: AngularFirestore) {
         this.addItemValue = "";
         this.itemCollection = db.collection('items');
-        this.items = db.collection('items').valueChanges({ idField: 'id' });
-        this.items.forEach(item => {
-            console.log(item);
-        });
+        this.items = db.collection('items').valueChanges({ idField: 'id' }).pipe(map((items: {id: string, name: string}) => items.sort((a, b) => {return a.name > b.name ? 1 : -1})));
+        // this.items = db.collection('items').valueChanges({ idField: 'id' });
+        this.items.subscribe(item => console.log(item));
+        this.items.pipe(take(1)).subscribe(() => this.loading = false)
     }
 
     addItemUpdate(event: any) {

@@ -1,6 +1,9 @@
-<input #addItemInput value="{{ addItemValue }}" (input)="addItemUpdate($event)" (keyup)="addItemKeyUp($event)">
-<div *ngIf="loading">Loading</div>
-<div class="text" data-id="{{ item.id }}" *ngFor="let item of items | async">
-    {{ item.name }}
-    <input type="button" value="delete" (click)="remItem(item.id)">
+<input #addItemInput class="addItem" value="{{ addItemValue }}" (input)="addItemUpdate($event)" (keyup)="addItemKeyUp($event)">
+<div class="loading" *ngIf="loading">Loading</div>
+<div class="row" *ngFor="let item of items | async" (click)="clickItem($event, item.id)">
+    <div class="ancestors"></div>
+    <div class="current" [ngClass]="{editing: editing == item.id}">
+        {{ item.name }}
+    </div>
+    <div class="descendants"></div>
 </div>

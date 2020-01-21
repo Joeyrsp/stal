@@ -21,7 +21,13 @@
 
 .row {
     display: grid;
-    grid-template-columns: 1fr auto auto auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 15px;
+}
+
+.ancestors, .descendants {
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
 .loading {
@@ -31,12 +37,4 @@
 
 .editing {
     background-color: rgb(173, 173, 255);
-}
-
-.row:hover .add-family {
-    display: inline;
-}
-
-.add-family {
-    display: none;
 }

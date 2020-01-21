@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
         this.itemCollection = db.collection('items');
         this.items = db.collection('items')
           .valueChanges({ idField: 'id' })
-          .pipe(map((items: {id: string, name: string}[]) => items.sort((a, b) => {return a.name > b.name ? 1 : -1})));
+          .pipe(map((items: {id: string, name: string}[]) => items.sort((a, b) => {return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1})));
         this.items.subscribe((items) => console.log(items));
         this.items.subscribe((items) => this.itemsFlat = items);
         this.items.pipe(first()).subscribe(() => this.loading = false);
@@ -30,7 +30,10 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         // keep focus in the input field
-        document.querySelector('.addItem').addEventListener('focusout', (event) => setTimeout(() => {document.querySelector('.addItem').focus()}, 0))
+        document.querySelector('.addItem').addEventListener('focusout', (event) => setTimeout(() => {
+            let el = <HTMLElement>document.querySelector('.addItem');
+            el.focus();
+        }, 0))
     }
 
     addItemUpdate(event) {

@@ -1,9 +1,11 @@
 <input #addItemInput class="addItem" value="{{ addItemValue }}" (input)="addItemUpdate($event)" (keyup)="addItemKeyUp($event)">
 <div class="loading" *ngIf="loading">Loading</div>
-<div class="row" *ngFor="let item of items | async" (click)="clickItem($event, item.id)">
-    <div class="ancestors"></div>
-    <div class="current" [ngClass]="{editing: editing == item.id}">
-        {{ item.name }}
+<div class="items">
+    <div class="row" *ngFor="let item of items | async" (click)="clickItem($event, item.id)">
+        <div class="ancestors"></div>
+        <div class="current" [ngClass]="{editing: editing == item.id}">
+            {{ item.name }}
+        </div>
+        <div class="descendants"></div>
     </div>
-    <div class="descendants"></div>
 </div>

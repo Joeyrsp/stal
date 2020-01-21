@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+.addItem {
+    width: 100%;
+    text-align: center;
+}
+
+.items {
+    scrollbar-width: none;
+    overflow-y: auto;
+}
+
+.items::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto 1fr;
+}
+
+.loading {
+    text-align: center;
+    color: rgb(255, 0, 0);
+}
+
+.editing {
+    background-color: rgb(173, 173, 255);
+}
+
+.row:hover .add-family {
+    display: inline;
+}
+
+.add-family {
+    display: none;
+}
